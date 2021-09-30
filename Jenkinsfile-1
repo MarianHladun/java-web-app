@@ -1,11 +1,19 @@
-options {
+pipeline {
+  
+agent {
+  label 'master'
+}
+  options {
     buildDiscarder(logRotator(numToKeepStr: '5'))
   }
-
-node('master') {
-    steps {
+  stages {
+    stage('Scan') {
+      steps {
         withSonarQubeEnv(installationName: 'Sonar-DLab') { 
           sh 'ip a'
           sh './mvnw clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar'
         }
+      }
+    }
+  }
 }
