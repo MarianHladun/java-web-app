@@ -11,6 +11,8 @@ agent {
       steps {
         withSonarQubeEnv(installationName: 'Sonar-DLab') { 
           sh 'ip a'
+          sh 'java -version'
+          sh 'mvn -version'
           sh './mvnw clean sonar:sonar'
         }
       }
